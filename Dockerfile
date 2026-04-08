@@ -4,7 +4,7 @@ WORKDIR /src
 
 # Copy project files first for better Docker layer caching
 COPY backend/VolunteerHub_Backend_V3-main/src/VolunteerHub.Web/VolunteerHub.Web.csproj src/VolunteerHub.Web/
-COPY src/VolunteerHub.Infrastructure/VolunteerHub.Infrastructure.csproj src/VolunteerHub.Infrastructure/
+COPY backend/VolunteerHub_Backend_V3-main/src/VolunteerHub.Infrastructure/VolunteerHub.Infrastructure.csproj src/VolunteerHub.Infrastructure/
 COPY backend/VolunteerHub_Backend_V3-main/src/VolunteerHub.Application/VolunteerHub.Application.csproj src/VolunteerHub.Application/
 COPY backend/VolunteerHub_Backend_V3-main/src/VolunteerHub.Domain/VolunteerHub.Domain.csproj src/VolunteerHub.Domain/
 COPY backend/VolunteerHub_Backend_V3-main/src/VolunteerHub.Contracts/VolunteerHub.Contracts.csproj src/VolunteerHub.Contracts/
