@@ -1,0 +1,99 @@
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10622]
+      Entity 'Event' has a global query filter defined and is the required end of a relationship with the entity 'AttendanceRecord'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10622]
+      Entity 'Event' has a global query filter defined and is the required end of a relationship with the entity 'EventSkillRequirement'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10622]
+      Entity 'Event' has a global query filter defined and is the required end of a relationship with the entity 'EventSponsor'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10622]
+      Entity 'SponsorProfile' has a global query filter defined and is the required end of a relationship with the entity 'SponsorContribution'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10622]
+      Entity 'VolunteerProfile' has a global query filter defined and is the required end of a relationship with the entity 'VolunteerBadge'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10622]
+      Entity 'VolunteerProfile' has a global query filter defined and is the required end of a relationship with the entity 'VolunteerSkill'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT GET_LOCK('__VolunteerHub_EFMigrationsLock', 259200)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE IF NOT EXISTS `__EFMigrationsHistory` (
+          `MigrationId` varchar(150) CHARACTER SET utf8mb4 NOT NULL,
+          `ProductVersion` varchar(32) CHARACTER SET utf8mb4 NOT NULL,
+          CONSTRAINT `PK___EFMigrationsHistory` PRIMARY KEY (`MigrationId`)
+      ) CHARACTER SET=utf8mb4;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='VolunteerHub' AND TABLE_NAME='__EFMigrationsHistory';
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT `MigrationId`, `ProductVersion`
+      FROM `__EFMigrationsHistory`
+      ORDER BY `MigrationId`;
+info: Microsoft.EntityFrameworkCore.Migrations[20405]
+      No migrations were applied. The database is already up to date.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT RELEASE_LOCK('__VolunteerHub_EFMigrationsLock')
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (19ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+      SELECT `a`.`Id`, `a`.`ConcurrencyStamp`, `a`.`Description`, `a`.`Name`, `a`.`NormalizedName`
+      FROM `AspNetRoles` AS `a`
+      WHERE `a`.`NormalizedName` = @__normalizedName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+      SELECT `a`.`Id`, `a`.`ConcurrencyStamp`, `a`.`Description`, `a`.`Name`, `a`.`NormalizedName`
+      FROM `AspNetRoles` AS `a`
+      WHERE `a`.`NormalizedName` = @__normalizedName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+      SELECT `a`.`Id`, `a`.`ConcurrencyStamp`, `a`.`Description`, `a`.`Name`, `a`.`NormalizedName`
+      FROM `AspNetRoles` AS `a`
+      WHERE `a`.`NormalizedName` = @__normalizedName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+      SELECT `a`.`Id`, `a`.`ConcurrencyStamp`, `a`.`Description`, `a`.`Name`, `a`.`NormalizedName`
+      FROM `AspNetRoles` AS `a`
+      WHERE `a`.`NormalizedName` = @__normalizedName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+      SELECT `a`.`Id`, `a`.`AccessFailedCount`, `a`.`ConcurrencyStamp`, `a`.`CreatedAt`, `a`.`Email`, `a`.`EmailConfirmed`, `a`.`FirstName`, `a`.`IsActive`, `a`.`LastName`, `a`.`LockoutEnabled`, `a`.`LockoutEnd`, `a`.`NormalizedEmail`, `a`.`NormalizedUserName`, `a`.`PasswordHash`, `a`.`PhoneNumber`, `a`.`PhoneNumberConfirmed`, `a`.`SecurityStamp`, `a`.`TwoFactorEnabled`, `a`.`UpdatedAt`, `a`.`UserName`
+      FROM `AspNetUsers` AS `a`
+      WHERE `a`.`NormalizedEmail` = @__normalizedEmail_0
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__badge_Code_0='?' (Size = 50)], CommandType='Text', CommandTimeout='30']
+      SELECT `b`.`Id`, `b`.`Code`, `b`.`CreatedAt`, `b`.`CreatedBy`, `b`.`Description`, `b`.`IsActive`, `b`.`Name`, `b`.`UpdatedAt`, `b`.`UpdatedBy`
+      FROM `Badges` AS `b`
+      WHERE `b`.`Code` = @__badge_Code_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__badge_Code_0='?' (Size = 50)], CommandType='Text', CommandTimeout='30']
+      SELECT `b`.`Id`, `b`.`Code`, `b`.`CreatedAt`, `b`.`CreatedBy`, `b`.`Description`, `b`.`IsActive`, `b`.`Name`, `b`.`UpdatedAt`, `b`.`UpdatedBy`
+      FROM `Badges` AS `b`
+      WHERE `b`.`Code` = @__badge_Code_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__badge_Code_0='?' (Size = 50)], CommandType='Text', CommandTimeout='30']
+      SELECT `b`.`Id`, `b`.`Code`, `b`.`CreatedAt`, `b`.`CreatedBy`, `b`.`Description`, `b`.`IsActive`, `b`.`Name`, `b`.`UpdatedAt`, `b`.`UpdatedBy`
+      FROM `Badges` AS `b`
+      WHERE `b`.`Code` = @__badge_Code_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__badge_Code_0='?' (Size = 50)], CommandType='Text', CommandTimeout='30']
+      SELECT `b`.`Id`, `b`.`Code`, `b`.`CreatedAt`, `b`.`CreatedBy`, `b`.`Description`, `b`.`IsActive`, `b`.`Name`, `b`.`UpdatedAt`, `b`.`UpdatedBy`
+      FROM `Badges` AS `b`
+      WHERE `b`.`Code` = @__badge_Code_0
+      LIMIT 1
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://127.0.0.1:5080
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Production
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: D:\CNLTTH\CONGNGHEWEB\VolunteerHub\backend\VolunteerHub_Backend_V3-main\src\VolunteerHub.Web
+warn: Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware[3]
+      Failed to determine the https port for redirect.
