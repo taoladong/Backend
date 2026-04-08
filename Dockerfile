@@ -13,7 +13,7 @@ RUN dotnet restore src/VolunteerHub.Web/VolunteerHub.Web.csproj
 
 # Copy source and publish
 COPY . .
-RUN dotnet publish src/VolunteerHub.Web/VolunteerHub.Web.csproj -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish backend/VolunteerHub_Backend_V3-main/src/VolunteerHub.Web/VolunteerHub.Web.csproj -c Release -o /app/publish /p:UseAppHost=false
 
 # Runtime stage
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
