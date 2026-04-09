@@ -12,16 +12,43 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
-// builder.Services.AddCors(options =>
-// {
-//     options.AddPolicy("AllowFrontend", policy =>
-//     {
-//         policy.WithOrigins("http://localhost:5173")
-//               .AllowAnyHeader()
-//               .AllowAnyMethod()
-//               .AllowCredentials();
-//     });
-// });
+var configuredOrigins = builder.Configuration["Cors:AllowedOrigins"]
+    ?.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
+    ?? Array.Empty<string>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        if (configuredOrigins.Length > 0)
+        {
+            policy.WithOrigins(configuredOrigins);
+        }
+        else
+        {
+            policy.WithOrigins("http://localhost:5173", "https://frontend-blush-nine-38.vercel.app");
+        }
+
+        policy.SetIsOriginAllowed(origin =>
+        {
+            if (configuredOrigins.Any(x => x.Equals(origin, StringComparison.OrdinalIgnoreCase)))
+            {
+                return true;
+            }
+
+            if (origin.StartsWith("http://localhost:", StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+
+            return origin.EndsWith(".vercel.app", StringComparison.OrdinalIgnoreCase);
+        });
+
+        policy.AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
 
 var app = builder.Build();
 
@@ -41,7 +68,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// app.UseCors("AllowFrontend");
+app.UseCors("AllowFrontend");
 
 app.UseSwagger();
 app.UseSwaggerUI();
