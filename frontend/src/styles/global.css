@@ -1,0 +1,150 @@
+﻿:root {
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  color: #10243e;
+  background-color: #eef5fb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at 8% 15%, #d8fff0 0%, transparent 30%),
+    radial-gradient(circle at 92% 5%, #ffe8d7 0%, transparent 28%), #eef5fb;
+}
+
+a {
+  color: inherit;
+}
+
+.app-shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 16px;
+}
+
+.sidebar {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #d5e1ec;
+  border-radius: 16px;
+  padding: 18px;
+  display: grid;
+  align-content: start;
+  gap: 16px;
+}
+
+.sidebar h1 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.sidebar nav {
+  display: grid;
+  gap: 8px;
+}
+
+.sidebar nav a {
+  text-decoration: none;
+  padding: 9px 11px;
+  border-radius: 10px;
+  border: 1px solid #dbe5ef;
+  background: #fff;
+  font-weight: 600;
+}
+
+.sidebar nav a.active {
+  background: #0b8f8c;
+  border-color: #0b8f8c;
+  color: #fff;
+}
+
+.role-switcher {
+  display: grid;
+  gap: 8px;
+}
+
+.content {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #d8e4ef;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 24px rgba(14, 44, 74, 0.08);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.status-value {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #0a7f7b;
+}
+
+.muted {
+  margin: 0;
+  color: #4d647d;
+}
+
+.button-primary,
+button {
+  border: 0;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 9px 12px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.button-primary {
+  color: #fff;
+  background: linear-gradient(135deg, #0a8a87 0%, #00a09d 100%);
+}
+
+button {
+  background: #edf3f8;
+  color: #13314d;
+}
+
+.button-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.login-wrap {
+  display: grid;
+  gap: 12px;
+}
+
+.login-wrap select {
+  max-width: 250px;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid #c7d6e5;
+}
+
+@media (max-width: 920px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
