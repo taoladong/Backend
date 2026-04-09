@@ -1,59 +1,143 @@
-﻿import { useState } from "react";
+﻿import { useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../features/auth/useAuth";
-import { apiClient } from "../shared/api/client";
+
+const initialRegister = {
+  email: "",
+  password: "",
+  firstName: "",
+  lastName: "",
+  role: "Volunteer",
+};
 
 export function LoginPage() {
-  const [role, setRole] = useState("volunteer");
-  const [apiMessage, setApiMessage] = useState("");
-  const { signIn } = useAuth();
+  const [tab, setTab] = useState("login");
+  const [loginForm, setLoginForm] = useState({ email: "", password: "", rememberMe: true });
+  const [registerForm, setRegisterForm] = useState(initialRegister);
+  const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { login, register, userRole } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
-  async function handleCheckApi() {
+  const redirectPath = useMemo(() => {
+    if (location.state?.from) return location.state.from;
+    if (userRole) return `/${userRole}/dashboard`;
+    return "/volunteer/dashboard";
+  }, [location.state?.from, userRole]);
+
+  async function handleLogin(event) {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setMessage("");
     try {
-      const response = await apiClient.get("/api/auth/me");
-      setApiMessage(`API connected (HTTP ${response.status})`);
+      await login(loginForm);
+      navigate(redirectPath, { replace: true });
     } catch (error) {
-      const status = error?.response?.status;
-      if (status === 401) {
-        setApiMessage("API connected (401 before login is expected)");
-        return;
-      }
-      setApiMessage("Cannot reach API. Check VITE_API_BASE_URL.");
+      setMessage(error?.response?.data?.Error || "Login failed");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
-  function handleEnter() {
-    signIn("phase0-demo-token", role);
-    const from = location.state?.from;
-    navigate(from || `/${role}/dashboard`, { replace: true });
+  async function handleRegister(event) {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setMessage("");
+    try {
+      await register(registerForm);
+      setMessage("Register success. Please login.");
+      setTab("login");
+    } catch (error) {
+      setMessage(error?.response?.data?.Error || "Register failed");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
-    <div className="login-wrap">
-      <h2>Login Shell (Phase 0)</h2>
-      <p className="muted">Trang nay chi la shell de mo route role-based truoc khi noi auth that.</p>
-
-      <label htmlFor="role">Role</label>
-      <select id="role" value={role} onChange={(event) => setRole(event.target.value)}>
-        <option value="volunteer">Volunteer</option>
-        <option value="organizer">Organizer</option>
-        <option value="sponsor">Sponsor</option>
-        <option value="admin">Admin</option>
-      </select>
+    <div className="card login-wrap">
+      <h2>Authentication</h2>
 
       <div className="button-row">
-        <button type="button" className="button-primary" onClick={handleEnter}>
-          Enter dashboard
-        </button>
-        <button type="button" onClick={handleCheckApi}>
-          Check API
-        </button>
+        <button type="button" onClick={() => setTab("login")}>Login</button>
+        <button type="button" onClick={() => setTab("register")}>Register</button>
       </div>
 
-      {apiMessage && <p className="muted">{apiMessage}</p>}
+      {tab === "login" && (
+        <form className="form-grid" onSubmit={handleLogin}>
+          <label>Email</label>
+          <input
+            type="email"
+            required
+            value={loginForm.email}
+            onChange={(e) => setLoginForm((prev) => ({ ...prev, email: e.target.value }))}
+          />
+
+          <label>Password</label>
+          <input
+            type="password"
+            required
+            value={loginForm.password}
+            onChange={(e) => setLoginForm((prev) => ({ ...prev, password: e.target.value }))}
+          />
+
+          <button className="button-primary" type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Signing in..." : "Sign in"}
+          </button>
+        </form>
+      )}
+
+      {tab === "register" && (
+        <form className="form-grid" onSubmit={handleRegister}>
+          <label>First name</label>
+          <input
+            required
+            value={registerForm.firstName}
+            onChange={(e) => setRegisterForm((prev) => ({ ...prev, firstName: e.target.value }))}
+          />
+
+          <label>Last name</label>
+          <input
+            required
+            value={registerForm.lastName}
+            onChange={(e) => setRegisterForm((prev) => ({ ...prev, lastName: e.target.value }))}
+          />
+
+          <label>Email</label>
+          <input
+            type="email"
+            required
+            value={registerForm.email}
+            onChange={(e) => setRegisterForm((prev) => ({ ...prev, email: e.target.value }))}
+          />
+
+          <label>Password</label>
+          <input
+            type="password"
+            required
+            minLength={8}
+            value={registerForm.password}
+            onChange={(e) => setRegisterForm((prev) => ({ ...prev, password: e.target.value }))}
+          />
+
+          <label>Role</label>
+          <select
+            value={registerForm.role}
+            onChange={(e) => setRegisterForm((prev) => ({ ...prev, role: e.target.value }))}
+          >
+            <option value="Volunteer">Volunteer</option>
+            <option value="Organizer">Organizer</option>
+            <option value="Sponsor">Sponsor</option>
+          </select>
+
+          <button className="button-primary" type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Creating..." : "Create account"}
+          </button>
+        </form>
+      )}
+
+      {message && <p className="muted">{message}</p>}
     </div>
   );
 }
-

@@ -2,8 +2,12 @@
 import { useAuth } from "../../features/auth/useAuth";
 
 export function RequireAuth() {
-  const { isAuthenticated } = useAuth();
+  const { status, isAuthenticated } = useAuth();
   const location = useLocation();
+
+  if (status === "loading") {
+    return <div className="card">Loading session...</div>;
+  }
 
   if (!isAuthenticated) {
     return <Navigate to="/login" replace state={{ from: location.pathname }} />;
@@ -14,11 +18,11 @@ export function RequireAuth() {
 
 export function RequireRole({ roles }) {
   const { userRole } = useAuth();
+  const normalized = roles.map((r) => String(r).toLowerCase());
 
-  if (!roles.includes(userRole)) {
+  if (!normalized.includes(userRole)) {
     return <Navigate to="/" replace />;
   }
 
   return <Outlet />;
 }
-

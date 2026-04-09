@@ -4,6 +4,8 @@ import { RequireAuth, RequireRole } from "./RouteGuards";
 import { HomePage } from "../../pages/HomePage";
 import { LoginPage } from "../../pages/LoginPage";
 import { VolunteerDashboardPage } from "../../pages/VolunteerDashboardPage";
+import { VolunteerEventsPage } from "../../pages/VolunteerEventsPage";
+import { VolunteerProfilePage } from "../../pages/VolunteerProfilePage";
 import { OrganizerDashboardPage } from "../../pages/OrganizerDashboardPage";
 import { SponsorDashboardPage } from "../../pages/SponsorDashboardPage";
 import { AdminDashboardPage } from "../../pages/AdminDashboardPage";
@@ -19,6 +21,8 @@ export function AppRouter() {
         <Route element={<RequireAuth />}>
           <Route element={<RequireRole roles={["volunteer"]} />}>
             <Route path="/volunteer/dashboard" element={<VolunteerDashboardPage />} />
+            <Route path="/volunteer/events" element={<VolunteerEventsPage />} />
+            <Route path="/volunteer/profile" element={<VolunteerProfilePage />} />
           </Route>
 
           <Route element={<RequireRole roles={["organizer"]} />}>

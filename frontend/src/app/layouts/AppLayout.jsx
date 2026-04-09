@@ -3,17 +3,17 @@ import { useAuth } from "../../features/auth/useAuth";
 
 const roleMenus = {
   volunteer: [
-    { to: "/volunteer/dashboard", label: "Volunteer Dashboard" },
+    { to: "/volunteer/dashboard", label: "Dashboard" },
+    { to: "/volunteer/events", label: "Events" },
+    { to: "/volunteer/profile", label: "Profile & Passport" },
   ],
-  organizer: [
-    { to: "/organizer/dashboard", label: "Organizer Dashboard" },
-  ],
+  organizer: [{ to: "/organizer/dashboard", label: "Organizer Dashboard" }],
   sponsor: [{ to: "/sponsor/dashboard", label: "Sponsor Dashboard" }],
   admin: [{ to: "/admin/dashboard", label: "Admin Dashboard" }],
 };
 
 export function AppLayout() {
-  const { isAuthenticated, userRole, signOut, switchRole } = useAuth();
+  const { isAuthenticated, userRole, user, logout } = useAuth();
   const menus = roleMenus[userRole] ?? [];
 
   return (
@@ -21,11 +21,12 @@ export function AppLayout() {
       <aside className="sidebar">
         <div>
           <h1>VolunteerHub</h1>
-          <p className="muted">Frontend Foundation - Phase 0</p>
+          <p className="muted">Phase 1 - Volunteer MVP</p>
         </div>
 
         <nav>
           <NavLink to="/">Home</NavLink>
+          {!isAuthenticated && <NavLink to="/login">Login</NavLink>}
           {menus.map((item) => (
             <NavLink key={item.to} to={item.to}>
               {item.label}
@@ -34,19 +35,10 @@ export function AppLayout() {
         </nav>
 
         {isAuthenticated && (
-          <div className="role-switcher">
-            <label htmlFor="role">Role</label>
-            <select
-              id="role"
-              value={userRole}
-              onChange={(event) => switchRole(event.target.value)}
-            >
-              <option value="volunteer">Volunteer</option>
-              <option value="organizer">Organizer</option>
-              <option value="sponsor">Sponsor</option>
-              <option value="admin">Admin</option>
-            </select>
-            <button type="button" onClick={signOut}>
+          <div className="account-box">
+            <p className="muted">{user?.email}</p>
+            <p className="muted">Role: {userRole || "unknown"}</p>
+            <button type="button" onClick={logout}>
               Sign out
             </button>
           </div>
@@ -59,4 +51,3 @@ export function AppLayout() {
     </div>
   );
 }
-
